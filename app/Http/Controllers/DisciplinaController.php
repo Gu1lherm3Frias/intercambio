@@ -83,7 +83,9 @@ class DisciplinaController extends Controller
     {
         //desabilitado no form
         $this->authorize('owner',$disciplina->pedido);
-        Storage::delete($disciplina->path);
+        if($disciplina->path) {
+            Storage::delete($disciplina->path);
+        }
         $pedido_id = $disciplina->pedido_id;
         $disciplina->delete();
         request()->session()->flash('alert-info','Disciplina excluída com sucesso.');
