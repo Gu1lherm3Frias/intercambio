@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Service\Utils;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DisciplinaRequest extends FormRequest
@@ -27,10 +28,12 @@ class DisciplinaRequest extends FormRequest
             'tipo' => 'required',
             'nome' => 'required',
             'nota' => 'nullable',
-            'creditos' => 'required|integer',
+            'creditos' => 'required',
+            'conversao' => 'nullable',
             'codigo' => 'nullable',
             'carga_horaria' => 'required|integer',
             'pedido_id' => 'nullable',
+            'nome_materia_usp' => 'nullable'
         ];
 
         if($this->tipo == "Obrigatória" && $this->method() == 'POST'){
@@ -48,6 +51,14 @@ class DisciplinaRequest extends FormRequest
 
         return $data;
     }
+
+    protected function prepareForValidation()
+    {
+        $this->merge(
+            ['nome_materia_usp' => Utils::nome_disciplina_usp($this->codigo)] ?? null
+        );
+    }
+
     public function messages()
     {
         return [

@@ -43,7 +43,6 @@ class DisciplinaController extends Controller
     public function update(DisciplinaRequest $request, Disciplina $disciplina)
     {
         $this->authorize('owner',$disciplina->pedido);
-
         // somente administradores podem enviar a disciplina para análise
         if($disciplina->status == "Análise" ){
             $this->authorize('admin');
@@ -101,14 +100,16 @@ class DisciplinaController extends Controller
     public function converte(Request $request)
     {
         $request->validate([
-            'conversao' => 'required|integer',
+            'conversao' => 'required',
         ]);
 
         $this->authorize('admin');
         $disciplina = Disciplina::find($request->disciplina_id);
 
         if($disciplina){
-            $disciplina->conversao = $request->conversao;
+            $explode = explode(',',$request->conversao);
+            $conversao = implode('.',$explode); //evita truncamento
+            $disciplina->conversao = $conversao;
             $disciplina->save();
         }
         return back();

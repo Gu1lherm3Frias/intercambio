@@ -19,6 +19,13 @@ class Utils
         return [];
     }
 
+    public static function nome_disciplina_usp($coddis){
+        if($coddis){
+            return Graduacao::nomeDisciplina($coddis);
+        }
+        return [];
+    }
+
     public static function updatePedidoStatus(Pedido $pedido){
         # Se nesse pedido não tem nenhuma disciplina: 'Em elaboração'
         $disciplinas = $pedido->disciplinas;

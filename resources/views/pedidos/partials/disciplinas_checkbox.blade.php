@@ -44,9 +44,12 @@
           @endif  
         @endif
       </td>
-
+      {{-- reverter a migration. O que preciso fazer: pegar o nome da disciplina com base no codigo dela --}}
       <td align="center">{{ $disciplina->carga_horaria }}</td>
-      <td align="center">{{ $disciplina->codigo }}</td>
+      <td align="center">
+        {{ $disciplina->codigo }} 
+        - {{ $disciplina->nome_materia_usp ?? \App\Service\Utils::nome_disciplina_usp($disciplina->codigo) }}
+      </td>
       <td align="center">
           @if(!empty($disciplina->path))
           <a href="/disciplinas/{{ $disciplina->id }}/showfile"><i class="far fa-file-pdf"></i></a> 
