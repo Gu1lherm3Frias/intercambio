@@ -37,7 +37,7 @@ class Disciplina extends Model
         'Sim',
         'Não'
     ];
-    
+
     public function setCreditosAttribute($value)
     {
         $this->attributes['creditos'] = str_replace(",", ".", $value);
@@ -46,5 +46,17 @@ class Disciplina extends Model
     public function getCreditosAttribute($value)
     {
         return $this->attributes['creditos'] = str_replace(".", ",", $value);
+    }
+
+    public function setConversaoAttribute($value)
+    {
+        $this->attributes['conversao'] = str_replace(",", ".", $value);
+    }
+
+    public function getConversaoAttribute($value)
+    {
+        if ( $value ) {
+            return $this->attributes['conversao'] = str_replace(".", ",", $value);
+        }
     }
 }

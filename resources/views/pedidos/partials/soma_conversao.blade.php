@@ -10,9 +10,9 @@
   </thead>
   <tbody>
     <tr>
-      <td align="center">{{ $pedido->disciplinas->where('tipo', 'Optativa Livre')->sum('conversao') }}</td>
-      <td align="center">{{ $pedido->disciplinas->where('tipo', 'Optativa Eletiva')->sum('conversao') }}</td>
-      <td align="center">{{ $pedido->disciplinas->sum('conversao') }}</td>
+      <td align="center">{{ $totais['livres'] }}</td>
+      <td align="center">{{ $totais['eletivas'] }}</td>
+      <td align="center">{{ $totais['total'] }}</td>
     </tr>
   </tbody>
 </table>

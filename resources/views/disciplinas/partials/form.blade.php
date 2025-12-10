@@ -55,10 +55,6 @@
                         <input type="text" class="form-control" id="carga_horaria" name="carga_horaria" value="{{ old('carga_horaria') }}" placeholder="Insira a carga horária semestral">
                     </div>
                 </div>
-                <div class="col-md-1" id="conversao" style="display:none;">
-                    <label><b>Insira a conversão dos créditos</b></label>
-                    <input type="text" name="conversao" value="{{ old('conversao') }}" class="form-control" placeholder="Conversão">
-                </div>
             </div>
             <div class="row" id="lista_obrigatorias" @if(old('tipo') == 'Obrigatória') style="display: block;" @else style="display: none;" @endif>
                 <div class="form-group col-sm">

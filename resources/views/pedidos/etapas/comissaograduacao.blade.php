@@ -3,7 +3,7 @@
   <thead>
     <tr align="center">
     <th scope="col">Nome</th>
-    <th scope="col">Código USP</th>   
+    <th scope="col">Código USP</th>
     <th scope="col">Nota</th>
     <th scope="col">Carga Horária Semestral</th>
     <th scope="col">Ementa</th>
@@ -24,14 +24,14 @@
           <td align="center">{{ $disciplina->carga_horaria }}</td>
           <td align="center">
             @if(!empty($disciplina->path))
-              <a href="/disciplinas/{{ $disciplina->id }}/showfile"><i class="far fa-file-pdf"></i></a> 
+              <a href="/disciplinas/{{ $disciplina->id }}/showfile"><i class="far fa-file-pdf"></i></a>
             @endif
           </td>
           <td align="center">{{ $disciplina->status }}</td>
           <td class="expandir">
             @foreach($disciplina->statuses as $status)
               @if(!empty($status->reason))
-                <b> {{\Carbon\Carbon::parse( $status->created_at)->format('d/m/Y H:i') }} - 
+                <b> {{\Carbon\Carbon::parse( $status->created_at)->format('d/m/Y H:i') }} -
                   {{ explode(' ', \App\Models\User::find($status->user_id)->name)[0] }}:
                 </b> {{ $status->reason }} <br>
               @endif
@@ -71,9 +71,9 @@
                   </div>
                 </form>
               @endcan('cg')
-            @endif 
+            @endif
           </td>
-        @endif  
+        @endif
       </tr>
     @endforeach
   </tbody>
@@ -83,7 +83,7 @@
 <table width=100% class="table table-bordered">
   <thead>
     <tr align="center">
-      <th scope="col">Nome</th>   
+      <th scope="col">Nome</th>
       <th scope="col">Nota</th>
       <th scope="col">Carga Horária Semestral</th>
       <th scope="col">Ementa</th>
@@ -102,14 +102,14 @@
             <td align="center">{{ $disciplina->carga_horaria }}</td>
             <td align="center">
                 @if(!empty($disciplina->path))
-                <a href="/disciplinas/{{ $disciplina->id }}/showfile"><i class="far fa-file-pdf"></i></a> 
+                <a href="/disciplinas/{{ $disciplina->id }}/showfile"><i class="far fa-file-pdf"></i></a>
                 @endif
             </td>
             <td align="center">{{ $disciplina->status }}</td>
             <td class="expandir">
               @foreach($disciplina->statuses as $status)
                 @if(!empty($status->reason))
-                  <b> {{\Carbon\Carbon::parse( $status->created_at)->format('d/m/Y H:i') }} - 
+                  <b> {{\Carbon\Carbon::parse( $status->created_at)->format('d/m/Y H:i') }} -
                     {{ explode(' ', \App\Models\User::find($status->user_id)->name)[0] }}:
                   </b> {{ $status->reason }} <br>
                 @endif
@@ -120,14 +120,14 @@
               @if( $disciplina->conversao === null)
                 Não convertido
               @else
-                @if($disciplina->conversao == 0) 
+                @if($disciplina->conversao == 0)
                   <font color="red">Não será considerada - créditos zero</font>
                 @else
                   {{ $disciplina->conversao }}
-                @endif  
+                @endif
               @endif
             </td>
-          @endif  
+          @endif
       </tr>
     @endforeach
   </tbody>
@@ -159,7 +159,7 @@
       </div>
 
       <textarea  class="form-control" rows="3" name="comentario"></textarea>
-      <br>    
+      <br>
       <button type="submit" onclick="return confirm('Tem certeza que deseja retornar o pedido para análise (ccint)? ');" class="btn btn-danger p-2">
         Retornar o pedido para análise (ccint)
       </button>

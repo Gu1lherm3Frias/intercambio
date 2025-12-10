@@ -3,7 +3,7 @@
   <thead>
     <tr align="center">
 
-      <th scope="col">Nome</th>   
+      <th scope="col">Nome</th>
       <th scope="col">Nota</th>
       <th scope="col">Créditos</th>
       <th scope="col">Créditos Convertidos</th>
@@ -12,7 +12,7 @@
       <th scope="col">Ementa</th>
       <th scope="col">Comentários</th>
       <th scope="col">Tipo</th>
-      
+
       <th scope="col">Status</th>
 
       @if($pedido->status == "Em elaboração")
@@ -28,7 +28,7 @@
     </tr>
   </thead>
   <tbody>
-    @foreach($pedido->disciplinas->sortBy('tipo') as $disciplina)  
+    @foreach($pedido->disciplinas->sortBy('tipo') as $disciplina)
     <tr>
       <td>{{ $disciplina->nome }}</td>
       <td align="center">{{ $disciplina->nota }}</td>
@@ -37,27 +37,26 @@
         @if( $disciplina->conversao === null)
           Não convertido
         @else
-          @if($disciplina->conversao == 0) 
+          @if($disciplina->conversao == 0)
             <font color="red">Não será considerada - créditos zero</font>
           @else
             {{ $disciplina->conversao }}
-          @endif  
+          @endif
         @endif
       </td>
-      {{-- reverter a migration. O que preciso fazer: pegar o nome da disciplina com base no codigo dela --}}
       <td align="center">{{ $disciplina->carga_horaria }}</td>
       <td align="center">
         {{ $disciplina->codigo }} - {{$disciplinas_usp[$disciplina->codigo] ?? ''}}
       </td>
       <td align="center">
           @if(!empty($disciplina->path))
-          <a href="/disciplinas/{{ $disciplina->id }}/showfile"><i class="far fa-file-pdf"></i></a> 
+          <a href="/disciplinas/{{ $disciplina->id }}/showfile"><i class="far fa-file-pdf"></i></a>
           @endif
       </td>
       <td class="expandir">
           @foreach($disciplina->statuses as $status)
             @if(!empty($status->reason))
-              <b> {{\Carbon\Carbon::parse( $status->created_at)->format('d/m/Y H:i') }} - 
+              <b> {{\Carbon\Carbon::parse( $status->created_at)->format('d/m/Y H:i') }} -
                 {{ explode(' ', \App\Models\User::find($status->user_id)->name)[0] }}:
               </b> {{ $status->reason }} <br>
             @endif
@@ -66,15 +65,15 @@
       <td align="center">{{ $disciplina->tipo }}</td>
 
       <td scope="col" aling="center">{{ $disciplina->status }}</td>
-    
+
       @if($pedido->status == "Em elaboração")
         <td align="center">
         <a href="/disciplinas/{{$disciplina->id}}/edit"><i class="fas fa-pencil-alt" color="#007bff"></i></a>
-          <form method="POST" action="/disciplinas/{{$disciplina->id}}"> 
+          <form method="POST" action="/disciplinas/{{$disciplina->id}}">
             @csrf
             @method('delete')
-            <button type="submit" onclick="return confirm('Tem certeza que deseja excluir a Disciplina?');" style="background-color: transparent;border: none;"><i class="far fa-trash-alt" color="#007bff"></i></button>  
-          </form> 
+            <button type="submit" onclick="return confirm('Tem certeza que deseja excluir a Disciplina?');" style="background-color: transparent;border: none;"><i class="far fa-trash-alt" color="#007bff"></i></button>
+          </form>
         </td>
       @elseif($pedido->status == "Análise")
       @can('admin')

@@ -4,7 +4,7 @@
 
   <table class="table table-striped">
     <thead>
-        <tr> 
+        <tr>
           <th><b>Número USP</b></th>
           <th><b>Nome discente</b></th>
           <th><b>Tipo do Intercâmbio</b></th>
@@ -30,10 +30,10 @@
           </td>
           <td>{{ $disciplina->status }}</td>
           <td>
-            <a href="/show_parecer/{{ $disciplina->id }}" class="btn btn-success"> 
-              @if($disciplina->status == 'Indeferido') 
-                Reenviar parecer 
-              @else 
+            <a href="/show_parecer/{{ $disciplina->id }}" class="btn btn-success">
+              @if($disciplina->status == 'Indeferido')
+                Reenviar parecer
+              @else
                 Realizar parecer
               @endif
             </a>
