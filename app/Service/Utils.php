@@ -4,9 +4,6 @@ namespace App\Service;
 
 use Uspdev\Replicado\Graduacao;
 use App\Models\Pedido;
-use App\Models\Disciplina;
-use Uspdev\Replicado\Pessoa;
-
 
 class Utils
 {
@@ -15,8 +12,14 @@ class Utils
         $curso = Graduacao::curso($codpes,env('REPLICADO_CODUNDCLG'));
         if(!empty($curso)) {
             return Graduacao::listarDisciplinasGradeCurricular($curso['codcur'], $curso['codhab']);
-        } 
+        }
         return [];
+    }
+
+    public static function nomeDisciplinaUsp($coddis){
+        $coddis = collect($coddis)->unique()->filter()->all();
+
+        return empty($coddis) ? [] : Graduacao::obterDisciplinas($coddis);
     }
 
     public static function updatePedidoStatus(Pedido $pedido){
@@ -27,8 +30,8 @@ class Utils
             $pedido->status = 'Em elaboração';
             $pedido->save();
             return;
-        } 
-        
+        }
+
         foreach($disciplinas as $disciplina){
 
             # Se nesse pedido existir alguma disciplina em elaboração status do pedido será em 'Em elaboração'

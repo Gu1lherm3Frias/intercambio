@@ -21,13 +21,14 @@ class DisciplinaController extends Controller
             $disciplina->original_name = $request->file('file')->getClientOriginalName();
             $disciplina->path = $request->file('file')->store('.');
         }
-        
+
         if($disciplina->tipo != 'Obrigatória') $disciplina->codigo = '';
 
         $disciplina->save();
         request()->session()->flash('alert-info','Disciplina adicionada com sucesso.');
         return redirect("/pedidos/{$disciplina->pedido->id}");
     }
+
     public function edit(Disciplina $disciplina)
     {
         $this->authorize('owner',$disciplina->pedido);
@@ -43,14 +44,13 @@ class DisciplinaController extends Controller
     public function update(DisciplinaRequest $request, Disciplina $disciplina)
     {
         $this->authorize('owner',$disciplina->pedido);
-
         // somente administradores podem enviar a disciplina para análise
         if($disciplina->status == "Análise" ){
             $this->authorize('admin');
         }
         $validated = $request->validated();
 
-        // Somente disiciplinas obrigatórias tem código usp 
+        // Somente disiciplinas obrigatórias tem código usp
         if($disciplina->tipo != 'Obrigatória') $validated['codigo'] = '';
 
         // Salvar dados
@@ -101,7 +101,14 @@ class DisciplinaController extends Controller
     public function converte(Request $request)
     {
         $request->validate([
-            'conversao' => 'required|integer',
+            'conversao' => [
+                'required',
+                'string',
+                'regex:/^\d+(?:[.,]\d+)?$/'
+            ],
+        ],[
+            'conversao.required' => 'O campo é obrigatório.',
+            'conversao.regex' => 'O campo deve ser numérico.'
         ]);
 
         $this->authorize('admin');

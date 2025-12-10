@@ -32,7 +32,7 @@ class WorkflowController extends Controller
         if($pedido->status == 'Comissão de Graduação') {
             $this->authorize('cg');
         }
-     
+
         if($pedido->status == 'Serviço de Graduação') {
             $this->authorize('sg');
         }
@@ -62,7 +62,7 @@ class WorkflowController extends Controller
         if($request->status == 'Comissão de Graduação'){
             $this->authorize('admin');
             foreach($pedido->disciplinas as $disciplina) {
-                if($disciplina->tipo != 'Obrigatória' && !is_numeric($disciplina->conversao)){
+                if($disciplina->tipo != 'Obrigatória' && !is_numeric($disciplina->getRawOriginal('conversao'))){
                     request()->session()->flash('alert-danger',"A disciplina {$disciplina->nome} não teve os créditos convertidos");
                     return back();
                 }
@@ -94,7 +94,7 @@ class WorkflowController extends Controller
             } else {
                 $disciplina->setStatus($request->status);
             }
-            
+
         }
 
         Utils::updatePedidoStatus($pedido);
@@ -125,7 +125,7 @@ class WorkflowController extends Controller
 
     public function docente(Request $request)
     {
-        $this->authorize('docente');  
+        $this->authorize('docente');
         $disciplinas = Disciplina::where('codpes_docente',auth()->user()->codpes)
                                   ->whereNull('deferimento_docente')->get();
 
@@ -147,7 +147,7 @@ class WorkflowController extends Controller
     public function store_parecer(Disciplina $disciplina, Request $request)
     {
         // TODO: verificar se o docente em questão é o owner do parecer
-        $this->authorize('docente'); 
+        $this->authorize('docente');
 
         if($request->parecer == 'indicar'){
             $request->validate([

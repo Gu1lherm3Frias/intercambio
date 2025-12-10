@@ -20,7 +20,8 @@
     @foreach($pedido->disciplinas->sortBy('tipo') as $disciplina)
       <tr>
           <td>{{ $disciplina->nome }}</td>
-          <td>{{ $disciplina->codigo }}</td>
+          <td>{{ $disciplina->codigo }} - {{$disciplinas_usp[$disciplina->codigo] ?? ''}}
+          </td>
           <td align="center">{{ $disciplina->tipo }}</td>
 
           <td align="center">{{ $disciplina->creditos }}</td>

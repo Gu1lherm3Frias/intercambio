@@ -5,8 +5,10 @@
     function flip(clicado) {
         if(clicado == 'Obrigatória'){
             document.getElementById("lista_obrigatorias").style = true;
+            $("#conversao").css('display','none');
         } else {
             document.getElementById("lista_obrigatorias").style = "display: none;";
+            $("#conversao").css('display','block');
         }
     }
     </script>
@@ -53,9 +55,7 @@
                         <input type="text" class="form-control" id="carga_horaria" name="carga_horaria" value="{{ old('carga_horaria') }}" placeholder="Insira a carga horária semestral">
                     </div>
                 </div>
-
             </div>
-
             <div class="row" id="lista_obrigatorias" @if(old('tipo') == 'Obrigatória') style="display: block;" @else style="display: none;" @endif>
                 <div class="form-group col-sm">
                     <div class="form-group">

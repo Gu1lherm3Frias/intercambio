@@ -22,7 +22,7 @@
               <li class="list-group-item">
                 <b>Tipo do Intercâmbio:</b> {{ $disciplina->pedido->tipo }}
               </li>
-              
+
               <li class="list-group-item">
                 <b>Curso:</b> {{ $disciplina->pedido->curso }}
               </li>
@@ -36,7 +36,7 @@
               </li>
 
               <li class="list-group-item">
-                <b>Disciplina USP:</b> {{ $disciplina->codigo }} - {{ \Uspdev\Replicado\Graduacao::nomeDisciplina($disciplina->codigo) }}
+                <b>Disciplina USP:</b> {{ $disciplina->codigo }} - {{$disciplinas_usp[$disciplina->codigo] ?? ''}}
               </li>
 
               <li class="list-group-item">
@@ -52,13 +52,13 @@
               </li>
 
               <li class="list-group-item">
-                <b>Boletim:</b> <a href="/pedidos/{{ $disciplina->pedido->id }}/showfile"><i class="far fa-file-pdf"></i></a> 
+                <b>Boletim:</b> <a href="/pedidos/{{ $disciplina->pedido->id }}/showfile"><i class="far fa-file-pdf"></i></a>
               </li>
 
               <li class="list-group-item">
                 <b>Ementa:</b> <a href="/disciplinas/{{ $disciplina->id }}/showfile"><i class="far fa-file-pdf"></i></a>
-              </li>  
-                       
+              </li>
+
             </ul>
           </div>
 
@@ -72,7 +72,7 @@
               @foreach($disciplina->statuses as $status)
                 @if(!empty($status->reason))
                   <li class="list-group-item">
-                    <b> {{\Carbon\Carbon::parse( $status->created_at)->format('d/m/Y H:i') }} - 
+                    <b> {{\Carbon\Carbon::parse( $status->created_at)->format('d/m/Y H:i') }} -
                       {{ explode(' ', \App\Models\User::find($status->user_id)->name)[0] }}:
                     </b> {{ $status->reason }}
                   </li>
@@ -117,7 +117,7 @@
                   <button type="submit" class="btn btn-danger" name="parecer" value="indeferir" onclick="return confirm('Tem certeza que deseja indeferir?');">Indeferir</button>
                 </div>
               </div>
-              
+
           </form>
 
         </div>
